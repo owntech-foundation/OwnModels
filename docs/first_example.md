@@ -1,8 +1,27 @@
-# Gettings started with PLECS
+# First model example with PLECS
 
-PLECS is a software tool for system-level simualtions of electrical circuits developed by [Plexim](https://www.plexim.com/).
-It is not open-source, but it remains very accessible, which is a reason why we adopted it as one of the solutions to model our power converters.
-In this section we will explain to you how to get started with PLECS and run your first simulation.
+This page shows how to run your first example of a PLECS based OwnTech model.
+
+
+## Requirements
+
+Before you start, please make sure you fullfil the requirements below.
+
+!!! note "Requirements"
+     - Have installed and configured the licence of your [PLECS instance](getting_started.md#installing-plecs )
+     - Setup the [OwnTech PLECS library](getting_started.md#getting-the-ownmodels-plecs-library).
+
+
+## Using the example model
+
+We have developed a first model that you can run out-of-the-box. Here are the steps to launch it.
+
+
+**Step 1 -** In *PLECS Library Browser* go to *File->Open*
+
+  ![PLECS Library Open](../docs/Images/PLECS_open_model.png)
+
+
 
 ## Installing PLECS
 
