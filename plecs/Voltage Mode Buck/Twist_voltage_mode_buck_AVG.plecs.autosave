@@ -3,7 +3,7 @@ Plecs {
   Version       "4.7"
   CircuitModel  "ContStateSpace"
   StartTime     "0.0"
-  TimeSpan      "50e-3"
+  TimeSpan      "30e-3"
   Timeout       ""
   Solver        "radau"
   MaxStep       "1e-4"
@@ -53,7 +53,7 @@ Plecs {
   ScriptsDialogGeometry "[100 665 1040 385]"
   ScriptsDialogSplitterPos "226"
   Schematic {
-    Location      [245, 366; 1183, 1056]
+    Location      [1196, 363; 2134, 1053]
     ZoomFactor    1.17311
     SliderPosition [0, -1]
     ShowBrowser   off
@@ -103,11 +103,11 @@ Plecs {
       Direction     up
       Flipped       off
       LabelPosition south
-      Location      [1311, 61; 1863, 1046]
+      Location      [1224, 197; 1776, 1202]
       State         "AAAA/wAAAAD9AAAAAgAAAAEAAAAAAAAAAPwCAAAAA/sAAAAQAFoAbwBvA"
 "G0AQQByAGUAYQAAAAAA/////wAAAKkA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwIAAAO3AA"
 "ACAwAAAMgAAAB4+wAAAAwAVAByAGEAYwBlAHMAAAAAAP////8AAABjAP///wAAAAMAAAIoAAAAXfw"
-"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQAAAAAAAAAAigAAABEAP///wAAAigAAAO6AAAA"
+"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQAAAAAAAAAAigAAABEAP///wAAAigAAAPOAAAA"
 "BAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAA"
 "AAAAA=="
       SavedViews    "AAAAAgAAAAEAAAAYAFMAYQB2AGUAZAAgAHYAaQBlAHcAIAAxAAAAAAAAA"
@@ -393,11 +393,11 @@ Plecs {
       Type          Constant
       Name          "Cap\nON"
       Show          on
-      Position      [385, 240]
+      Position      [385, 250]
       Direction     down
       Flipped       off
       LabelPosition west
-      Frame         [-10, -20; 10, 20]
+      Frame         [-10, -10; 10, 10]
       Parameter {
         Variable      "Value"
         Value         "C_low_Elec_SW_signal"
@@ -1378,4 +1378,4 @@ Plecs {
 "rData.mean)"
   }
 }
-DemoSignature "AMiUwqNLt8dpe4wKKXpk48kzuljVJ5KrfG9adbhQUQw="
+DemoSignature "TF5ybf5Icglwwz05fPXdJSYHn4VfoQ3iJS+TGxa9GYQ="

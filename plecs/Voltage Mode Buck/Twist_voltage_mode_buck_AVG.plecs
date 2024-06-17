@@ -3,10 +3,10 @@ Plecs {
   Version       "4.7"
   CircuitModel  "ContStateSpace"
   StartTime     "0.0"
-  TimeSpan      "30e-3"
+  TimeSpan      "50e-3"
   Timeout       ""
   Solver        "radau"
-  MaxStep       "1e-3"
+  MaxStep       "1e-4"
   InitStep      "-1"
   FixedStep     "1e-3"
   Refine        "1"
@@ -393,11 +393,11 @@ Plecs {
       Type          Constant
       Name          "Cap\nON"
       Show          on
-      Position      [385, 240]
+      Position      [385, 250]
       Direction     down
       Flipped       off
       LabelPosition west
-      Frame         [-10, -20; 10, 20]
+      Frame         [-10, -10; 10, 10]
       Parameter {
         Variable      "Value"
         Value         "C_low_Elec_SW_signal"
@@ -1378,4 +1378,4 @@ Plecs {
 "rData.mean)"
   }
 }
-DemoSignature "4XcjX30V9VM6U9DbWQ7cklhICZLU9VogYGtOl78px30="
+DemoSignature "9pfe6lEuE1P3e3CN+cTgs4Qe8DSDn//as4c/7rYyOQ8="
