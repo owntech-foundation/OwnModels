@@ -1,9 +1,9 @@
 Plecs {
-  Name          "TWIST_1_4"
+  Name          "Twist_voltage_mode_buck"
   Version       "4.7"
   CircuitModel  "ContStateSpace"
   StartTime     "0.0"
-  TimeSpan      "3e-3"
+  TimeSpan      "30e-3"
   Timeout       ""
   Solver        "radau"
   MaxStep       "1e-4"
@@ -15,7 +15,7 @@ Plecs {
   AbsTol        "-1"
   TurnOnThreshold "0"
   SyncFixedStepTasks "2"
-  UseSingleCommonBaseRate "2"
+  UseSingleCommonBaseRate "1"
   LossVariableLimitExceededMsg "3"
   NegativeSwitchLossMsg "3"
   DivisionByZeroMsg "3"
@@ -25,8 +25,11 @@ Plecs {
   AssertionAction "1"
   InitializationCommands "%-----------Voltage Mode Example\n\nVgen = 30;\nCgen"
 " = 10e-3;\nRCgen = 0.3;\n\nRgen = 0.2;\n\nLgen = 50e-6;\nLgen_i_init = 0;\n\n"
-"sw_freq = 200e3;\ndead_time = 100e-9;\nleg1_pwm_phase = 0;\n\nC_low_Elec_SW_s"
-"ignal = 5;\n\nstep_time = 1e-3;\n\nR_load = 1;\n\n"
+"sw_freq = 200e3;\nsw_period = 1/sw_freq;\n\ndead_time = 100e-9;\nleg1_pwm_pha"
+"se = 0;\n\nC_low_Elec_SW_signal = 5;\n\nstep_time = 1e-3;\n\nR_load = 1;\n\n"
+"\n%PID parameters (8.6ms response time)\ncontrol_period = 20*sw_period;\n\nKp"
+" = 0.000215; \nTi = 7.5175e-5;\nKi = Kp/Ti;\nPI_init = 0;\n\nvref = 15;\n\n\n"
+"\n"
   InitialState  "1"
   SystemState   ""
   TaskingMode   "1"
@@ -50,16 +53,16 @@ Plecs {
   ScriptsDialogGeometry "[100 665 1040 385]"
   ScriptsDialogSplitterPos "226"
   Schematic {
-    Location      [376, 210; 1349, 944]
+    Location      [245, 366; 1183, 1056]
     ZoomFactor    1.17311
-    SliderPosition [0, 34]
+    SliderPosition [0, -1]
     ShowBrowser   off
     BrowserWidth  308
     Component {
       Type          DCVoltageSource
       Name          "Gen"
       Show          on
-      Position      [185, 535]
+      Position      [150, 505]
       Direction     down
       Flipped       on
       LabelPosition east
@@ -228,7 +231,7 @@ Plecs {
       Type          Voltmeter
       Name          "VSource"
       Show          on
-      Position      [100, 525]
+      Position      [65, 495]
       Direction     up
       Flipped       off
       LabelPosition northwest
@@ -246,7 +249,7 @@ Plecs {
       Type          Ammeter
       Name          "iSource"
       Show          on
-      Position      [220, 465]
+      Position      [185, 435]
       Direction     left
       Flipped       off
       LabelPosition westNorthwest
@@ -255,7 +258,7 @@ Plecs {
       Type          Subsystem
       Name          "Z_gen"
       Show          on
-      Position      [185, 490]
+      Position      [150, 460]
       Direction     up
       Flipped       off
       LabelPosition none
@@ -381,7 +384,7 @@ Plecs {
       Type          Ground
       Name          "Ground1"
       Show          off
-      Position      [100, 575]
+      Position      [65, 560]
       Direction     up
       Flipped       off
       LabelPosition east
@@ -444,26 +447,6 @@ Plecs {
       Parameter {
         Variable      "Value"
         Value         "C_low_Elec_SW_signal"
-        Show          off
-      }
-      Parameter {
-        Variable      "DataType"
-        Value         "10"
-        Show          off
-      }
-    }
-    Component {
-      Type          Constant
-      Name          "Duty \nCycle"
-      Show          on
-      Position      [335, 190]
-      Direction     right
-      Flipped       off
-      LabelPosition west
-      Frame         [-20, -10; 20, 10]
-      Parameter {
-        Variable      "Value"
-        Value         "0.5"
         Show          off
       }
       Parameter {
@@ -628,7 +611,7 @@ Plecs {
       Type          Goto
       Name          "Goto8"
       Show          off
-      Position      [125, 525]
+      Position      [95, 495]
       Direction     right
       Flipped       off
       LabelPosition south
@@ -647,7 +630,7 @@ Plecs {
       Type          Goto
       Name          "Goto9"
       Show          off
-      Position      [250, 420]
+      Position      [215, 390]
       Direction     right
       Flipped       off
       LabelPosition south
@@ -739,39 +722,10 @@ Plecs {
       }
     }
     Component {
-      Type          Step
-      Name          "Step"
-      Show          on
-      Position      [335, 160]
-      Direction     right
-      Flipped       off
-      LabelPosition eastSoutheast
-      Parameter {
-        Variable      "Time"
-        Value         "step_time"
-        Show          off
-      }
-      Parameter {
-        Variable      "Before"
-        Value         "0"
-        Show          off
-      }
-      Parameter {
-        Variable      "After"
-        Value         "1"
-        Show          off
-      }
-      Parameter {
-        Variable      "DataType"
-        Value         "10"
-        Show          off
-      }
-    }
-    Component {
       Type          Capacitor
       Name          "C2"
       Show          off
-      Position      [260, 490]
+      Position      [225, 460]
       Direction     down
       Flipped       on
       LabelPosition eastSoutheast
@@ -790,7 +744,7 @@ Plecs {
       Type          Resistor
       Name          "Rgen"
       Show          on
-      Position      [260, 530]
+      Position      [225, 500]
       Direction     up
       Flipped       off
       LabelPosition east
@@ -921,6 +875,245 @@ Plecs {
         Direction     down
       }
     }
+    Component {
+      Type          Reference
+      SrcComponent  "Owntech_lib/PLL/Discrete PID\\nController"
+      Name          "Discrete PID\nController"
+      Show          on
+      Position      [220, 190]
+      Direction     up
+      Flipped       off
+      LabelPosition south
+      Frame         [-40, -25; 40, 25]
+      Parameter {
+        Variable      "cont_type"
+        Value         "3"
+        Show          off
+      }
+      Parameter {
+        Variable      "par_source"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "kp"
+        Value         "Kp"
+        Show          off
+      }
+      Parameter {
+        Variable      "ki"
+        Value         "Ki"
+        Show          off
+      }
+      Parameter {
+        Variable      "kd"
+        Value         "0"
+        Show          off
+      }
+      Parameter {
+        Variable      "kf"
+        Value         "0"
+        Show          off
+      }
+      Parameter {
+        Variable      "ex_reset"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "x0_source"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "x0"
+        Value         "0.4"
+        Show          off
+      }
+      Parameter {
+        Variable      "ex_sat"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "sat_lim"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "int_method"
+        Value         "2"
+        Show          off
+      }
+      Parameter {
+        Variable      "t_sample"
+        Value         "control_period"
+        Show          off
+      }
+      Parameter {
+        Variable      "up_limit"
+        Value         "inf"
+        Show          off
+      }
+      Parameter {
+        Variable      "low_limit"
+        Value         "-inf"
+        Show          off
+      }
+      Parameter {
+        Variable      "aw_method"
+        Value         "2"
+        Show          off
+      }
+      Parameter {
+        Variable      "kbc"
+        Value         "1"
+        Show          off
+      }
+      Terminal {
+        Type          Input
+        Position      [-40, 0]
+        Direction     left
+      }
+      Terminal {
+        Type          Output
+        Position      [44, 0]
+        Direction     right
+      }
+      Terminal {
+        Type          Input
+        Position      [-5, -25]
+        Direction     up
+      }
+      Terminal {
+        Type          Input
+        Position      [5, -25]
+        Direction     up
+      }
+      Terminal {
+        Type          Input
+        Position      [15, -25]
+        Direction     up
+      }
+      Terminal {
+        Type          Input
+        Position      [-40, -15]
+        Direction     left
+      }
+      Terminal {
+        Type          Input
+        Position      [-40, 10]
+        Direction     left
+      }
+      Terminal {
+        Type          Input
+        Position      [25, -25]
+        Direction     up
+      }
+      Terminal {
+        Type          Input
+        Position      [35, -25]
+        Direction     up
+      }
+      Terminal {
+        Type          Input
+        Position      [-40, -20]
+        Direction     left
+      }
+      Terminal {
+        Type          Input
+        Position      [-40, -10]
+        Direction     left
+      }
+      Terminal {
+        Type          Input
+        Position      [-40, 20]
+        Direction     left
+      }
+    }
+    Component {
+      Type          From
+      Name          "From4"
+      Show          off
+      Position      [105, 215]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "Tag"
+        Value         "VLoad"
+        Show          off
+      }
+      Parameter {
+        Variable      "Visibility"
+        Value         "2"
+        Show          off
+      }
+    }
+    Component {
+      Type          Constant
+      Name          "Constant"
+      Show          on
+      Position      [85, 175]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Frame         [-30, -10; 30, 10]
+      Parameter {
+        Variable      "Value"
+        Value         "vref"
+        Show          off
+      }
+      Parameter {
+        Variable      "DataType"
+        Value         "10"
+        Show          off
+      }
+    }
+    Component {
+      Type          Sum
+      Name          "Subtract"
+      Show          off
+      Position      [150, 190]
+      Direction     up
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "IconShape"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "Inputs"
+        Value         "+-"
+        Show          off
+      }
+      Parameter {
+        Variable      "DataType"
+        Value         "10"
+        Show          off
+      }
+    }
+    Component {
+      Type          Constant
+      Name          "Constant1"
+      Show          on
+      Position      [320, 160]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Frame         [-30, -10; 30, 10]
+      Parameter {
+        Variable      "Value"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "DataType"
+        Value         "10"
+        Show          off
+      }
+    }
     Connection {
       Type          Wire
       SrcComponent  "RLoad"
@@ -940,11 +1133,11 @@ Plecs {
       Type          Wire
       SrcComponent  "Gen"
       SrcTerminal   2
-      Points        [185, 560]
+      Points        [150, 530]
       Branch {
-        Points        [260, 560]
+        Points        [225, 530]
         Branch {
-          Points        [315, 560; 315, 530; 375, 530]
+          Points        [375, 530]
           DstComponent  "TWIST\nSW MOD"
           DstTerminal   2
         }
@@ -954,7 +1147,7 @@ Plecs {
         }
       }
       Branch {
-        Points        [100, 560]
+        Points        [65, 530]
         Branch {
           DstComponent  "VSource"
           DstTerminal   2
@@ -976,7 +1169,7 @@ Plecs {
       Type          Wire
       SrcComponent  "VSource"
       SrcTerminal   1
-      Points        [100, 465; 185, 465]
+      Points        [65, 435; 150, 435]
       Branch {
         DstComponent  "Z_gen"
         DstTerminal   2
@@ -1004,13 +1197,6 @@ Plecs {
     }
     Connection {
       Type          Signal
-      SrcComponent  "Duty \nCycle"
-      SrcTerminal   1
-      DstComponent  "pwm"
-      DstTerminal   1
-    }
-    Connection {
-      Type          Signal
       SrcComponent  "VLow_meas"
       SrcTerminal   3
       DstComponent  "Goto6"
@@ -1034,7 +1220,7 @@ Plecs {
       Type          Signal
       SrcComponent  "iSource"
       SrcTerminal   3
-      Points        [220, 420]
+      Points        [185, 390]
       DstComponent  "Goto9"
       DstTerminal   1
     }
@@ -1072,7 +1258,7 @@ Plecs {
     }
     Connection {
       Type          Signal
-      SrcComponent  "Step"
+      SrcComponent  "Constant1"
       SrcTerminal   1
       Points        [390, 160]
       DstComponent  "pwm"
@@ -1082,9 +1268,9 @@ Plecs {
       Type          Wire
       SrcComponent  "iSource"
       SrcTerminal   2
-      Points        [260, 465]
+      Points        [225, 435]
       Branch {
-        Points        [315, 465; 315, 490; 350, 490]
+        Points        [315, 435; 315, 490; 350, 490]
         DstComponent  "TWIST\nSW MOD"
         DstTerminal   1
       }
@@ -1176,6 +1362,35 @@ Plecs {
       DstComponent  "TWIST\nSW MOD"
       DstTerminal   16
     }
+    Connection {
+      Type          Signal
+      SrcComponent  "Constant"
+      SrcTerminal   1
+      DstComponent  "Subtract"
+      DstTerminal   2
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "From4"
+      SrcTerminal   1
+      Points        [120, 215]
+      DstComponent  "Subtract"
+      DstTerminal   3
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "Subtract"
+      SrcTerminal   1
+      DstComponent  "Discrete PID\nController"
+      DstTerminal   1
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "Discrete PID\nController"
+      SrcTerminal   2
+      DstComponent  "pwm"
+      DstTerminal   1
+    }
     RectangleAnnotation {
       Position     [340, 195]
       Width        140
@@ -1194,17 +1409,18 @@ Plecs {
     } 
     Annotation {
       Name          "<html><body>\n<p><span style=\" font-weight:600; color:#0"
-"0694c;\">Twist 1.4 Open Loop example</span></p></body></html>"
-      Position      [110, 25]
+"0694c;\">Twist 1.4 Voltage mode Buck example</span></p></body></html>"
+      Position      [140, 35]
     } 
     Annotation {
       Name          "<html><body>\n<p><span style=\" color:#303d3a;\">In this "
 "example, a Twist board is </span></p>\n<p><span style=\" color:#303d3a;\">con"
 "nected to a fixed resistive </span></p>\n<p><span style=\" color:#303d3a;\">l"
 "oad via its Leg 1. </span></p>\n<p><span style=\" color:#303d3a;\">Power is s"
-"ent to the load after </span></p>\n<p><span style=\" color:#303d3a;\">1ms at "
-"a fixed duty cycle. </span></p></body></html>"
-      Position      [110, 70]
+"ent to the load using </span></p>\n<p><span style=\" color:#303d3a;\">a discr"
+"ete PI controller. </span></p>\n<p><span style=\" color:#303d3a;\">This is a "
+"switching model.</span></p></body></html>"
+      Position      [115, 85]
     } 
     RectangleAnnotation {
       Position     [480, 195]
@@ -1250,4 +1466,4 @@ Plecs {
 "rData.mean)"
   }
 }
-DemoSignature "TuCtMbdvpTmvo41T7GZNmZDl9u3+hkwWPjd5WIqP7ds="
+DemoSignature "ZErMlbVrPtcebt+MUP94vUCcvnT9eu0HRCwHbrdENdk="

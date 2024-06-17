@@ -1,5 +1,5 @@
 Plecs {
-  Name          "TWIST_1_4"
+  Name          "Twist_open_loop"
   Version       "4.7"
   CircuitModel  "ContStateSpace"
   StartTime     "0.0"
@@ -1250,4 +1250,4 @@ Plecs {
 "rData.mean)"
   }
 }
-DemoSignature "TuCtMbdvpTmvo41T7GZNmZDl9u3+hkwWPjd5WIqP7ds="
+DemoSignature "Ycmc9QTomNkjtqcJrHbLgIuIDHvAEFtGqf/M6b8Iigs="
