@@ -1,4 +1,4 @@
-# Voltage mode simulaton
+# Voltage mode simulation
 
 This page shows how to run a closed loop voltage mode PLECS based OwnTech simulation.
 
@@ -56,7 +56,7 @@ We will now run the averaged version of the closed loop voltage mode model. The 
 
 **Step 4 -** The simulation will run its course and give you the results as in the image below.
 
-  ![Simulation run on average model](Images/PLECS_voltage_mode_AVG_result.png)
+  ![Simulation run on average model](Images/PLECS_voltage_mode_AVG_results.png)
 
 You can see an initial in-rush current for loading the Twist board capacitors. The voltage then rises to track its reference of 15 volts.
 
